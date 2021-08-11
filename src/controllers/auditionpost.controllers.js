@@ -1,7 +1,15 @@
 import { createAuditionPost, deleteAuditionPost, getAuditionPost, getAuditionPosts, updateAuditionPost } from "../services/auditionpost.services.js";
 import { ErrorResponse } from "../utils/errorResponse.js";
+import { validationResult } from "express-validator";
 
 async function httpCreateAuditionPost(req,res){
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        errors.array().forEach((error) => {
+            return res.status(400).json(error.msg);
+        });
+    };
+
     return res
             .status(201)
             .json(await createAuditionPost(req.body,req.user._id));

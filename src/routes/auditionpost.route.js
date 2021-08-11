@@ -2,11 +2,12 @@ import { Router } from 'express';
 import { httpCreateAuditionPost, httpDeleteAuditionPost, httpGetAuditionPost, httpGetAuditionPosts, httpUpdateAuditionPost } from '../controllers/auditionpost.controllers.js';
 import { errorCatcher } from '../middlewares/error.js';
 import { isAuthenticated } from '../middlewares/isAuthenticated..js';
+import validateAuditionPost from '../validation/auditionPost/auditionPost.validate.js';
 
 const router = Router();
 
 router.route('/')
-        .post(
+        .post(validateAuditionPost,
             errorCatcher(isAuthenticated),
             errorCatcher(httpCreateAuditionPost)
         )
@@ -20,7 +21,7 @@ router.route('/:id')
             errorCatcher(isAuthenticated),
             errorCatcher(httpGetAuditionPost)
         )
-        .put(
+        .put(validateAuditionPost,
             errorCatcher(isAuthenticated),
             errorCatcher(httpUpdateAuditionPost)
         )
