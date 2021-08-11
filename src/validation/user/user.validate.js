@@ -46,6 +46,9 @@ const validateUser = [
         .isBefore('Jan 1, 2010')
         .isAfter('Jan 1, 1900')
         .withMessage('Your age is not allowed to have this account!'),
+    body('address')
+        .isString()
+        .withMessage('Address needs to be a String')
     // body('resetPasswordToken'),
     // body('resetPasswordExpiration'),
 ];
