@@ -8,7 +8,10 @@ async function httpCreateUser(req,res){
 
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json("User validation failed!");
+        errors.array().forEach((error) => {
+            return res.status(400).json(error.msg);
+        })
+        // return res.status(400).json("User validation failed!");
     }
 
     req.body.password = await generatePasswordHash(req.body.password);
