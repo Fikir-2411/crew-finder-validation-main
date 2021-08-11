@@ -3,9 +3,10 @@ import { httpForgotPassword, httpCreateUser, httpLoginUser, httpResetPassword, h
 import { httpDeleteUser, httpGetUsers } from '../controllers/user/user.contollers.js';
 import { isDirectorOrProducer } from '../middlewares/elevatedRole.js';
 import { errorCatcher } from '../middlewares/error.js';
+import  validateUser  from '../validation/user/user.validate.js';
 const router = Router();
 
-router.route('/').post(errorCatcher(httpCreateUser)).get(httpGetUsers);
+router.route('/').post(validateUser,errorCatcher(httpCreateUser)).get(httpGetUsers);
 router.route('/:id').delete(errorCatcher(httpDeleteUser));
 router.route('/login').post(errorCatcher(httpLoginUser));
 router.route("/forgotpassword").post(errorCatcher(httpForgotPassword));
