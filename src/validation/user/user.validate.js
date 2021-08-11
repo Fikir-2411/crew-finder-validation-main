@@ -23,32 +23,14 @@ const validateUser = [
         .isBoolean()
         .withMessage('isActive should be a boolean'),
     body('role')
-        .custom((value, req) => {
-            for (const [key, values] of Object.entries(ROLE)){
-                if (values.match(value)){
-                    return true;
-                }
-            }
-        })
+        .isIn(Object.values(ROLE))
         .withMessage('Role does not exist!'),
     body('talent')
-        .custom((value, req) => {
-            for (const [key, values] of Object.entries(TALENT)){
-                if (values.match(value)){
-                    return true;
-                }
-            }
-        })
+        .isIn(Object.values(TALENT))
         .withMessage('Talent does not exist!'),
     // body('otherTalents'),
     body('verification')
-        .custom((value, req) => {
-            for (const [key, values] of Object.entries(VERIFICATION)){
-                if (values.match(value)){
-                    return true;
-                }
-            }
-        })
+        .isIn(Object.values(VERIFICATION))
         .withMessage('Verification does not exist!'),
     body('phoneNumber')
         .isMobilePhone()
