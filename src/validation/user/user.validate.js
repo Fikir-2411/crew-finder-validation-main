@@ -8,22 +8,31 @@ const validateUser = [
     body('password').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i").withMessage('Password should be minimum of 8 characters and include an Uppercase, a lowercase, a number and a character'),
     body('isActive').isBoolean().withMessage('isActive should be a boolean'),
     body('role').custom((value, req) => {
-        const roles = Array(ROLE);
-        console.log(roles);
-        if(roles.has(value)){
-            return true;
+        for (const [key, values] of Object.entries(ROLE)){
+            if (values.match(value)){
+                console.log(value);
+                return true;
+            }
         }
-        throw new Error('Role is unknown!');
-    }).withMessage('Role does not existing!'),
+    }).withMessage('Role does not exist!'),
     body('talent').custom((value, req) => {
-        if(TALENT.has(value)){
-            return true;
+        for (const [key, values] of Object.entries(TALENT)){
+            if (values.match(value)){
+                console.log(value);
+                return true;
+            }
         }
-        throw new Error('Talent is not defined!');
     }).withMessage('Talent does not exist!'),
     // body('otherTalents'),
-    // body('verification'),
-    // body('phoneNumber').isMobilePhone(),
+    body('verification').custom((value, req) => {
+        for (const [key, values] of Object.entries(VERIFICATION)){
+            if (values.match(value)){
+                console.log(value);
+                return true;
+            }
+        }
+    }).withMessage('Verification does not exist!'),
+    body('phoneNumber').isMobilePhone().withMessage('Provide valid phone number!'),
     // body('resetPasswordToken'),
     // body('resetPasswordExpiration'),
 ];
