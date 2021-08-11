@@ -1,7 +1,15 @@
 import { createApplication, deleteApplication, getApplication, getApplications, updateApplication } from "../services/application.services.js";
 import { ErrorResponse } from "../utils/errorResponse.js";
+import { validationResult } from "express-validator";
 
 async function httpCreateApplication(req,res){
+    const errors = validationResult(req);
+    if(!errors.isEmpty()){
+        errors.array().forEach((error) => {
+            return res.status(400).json(error.msg);
+        });
+    };
+
     const alreadyApplied = await getApplication({
         auditionPostId: req.body.auditionPostId,
         applicantId: req.user._id
