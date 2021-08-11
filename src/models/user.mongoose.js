@@ -20,6 +20,15 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    gender: {
+        type: String,
+        required: true,
+        enum: ['male', 'female'],
+    },
+    age: {
+        type: Date,
+        required: true,
+    },
     isActive: {
         type: Boolean,
         required: true,
