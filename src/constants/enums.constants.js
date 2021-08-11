@@ -32,3 +32,8 @@ export const TALENT = Object.freeze({
     EDITOR: "EDITOR",
     COMPOSER: "COMPOSER",
 });
+
+export const GENDER = Object.freeze({
+    MALE: "MALE",
+    FEMALE: "FEMALE",
+});
